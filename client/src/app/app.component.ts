@@ -1,79 +1,56 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { PokemonService } from './service/pokemon.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'client';
   opened = false;
-  pictures = [
-    {
-      id: 1,
-      title: 'A natural view',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg'
-    },
-    {
-      id: 2,
-      title: 'Newspaper',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/LTLE4QGRVQ.jpg'
-    },
-    {
-      id: 3,
-      title: 'Favourite pizza',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R926LU1YEA.jpg'
-    },
-    {
-      id: 4,
-      title: 'Abstract design',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg'
-    },
-    {
-      id: 5,
-      title: 'Tech',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/NO9CN3QYR3.jpg'
-    },
-    {
-      id: 6,
-      title: 'Nightlife',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/X1UK6NLGRU.jpg'
-    },
-    {
-      id: 1,
-      title: 'A natural view',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg'
-    },
-    {
-      id: 2,
-      title: 'Newspaper',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/LTLE4QGRVQ.jpg'
-    },
-    {
-      id: 3,
-      title: 'Favourite pizza',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/R926LU1YEA.jpg'
-    },
-    {
-      id: 4,
-      title: 'Abstract design',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg'
-    },
-    {
-      id: 5,
-      title: 'Tech',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/NO9CN3QYR3.jpg'
-    },
-    {
-      id: 6,
-      title: 'Nightlife',
-      img: 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/X1UK6NLGRU.jpg'
-    },
-  ];
+  pokemons:Array<any>;
+  length = 0;
+  pageSize = 10;
+  filter:string = null;
+  pokemon:any;
+  constructor(protected pokemonService: PokemonService) {
+      
+  }
 
-  detail(daat) 
+  ngOnInit() {
+    this.listPokemon(0, this.pageSize, null)
+  }
+
+  detail(pokemon) 
   {
   	//alert(123)
   	this.opened = true;
+    this.pokemonService.detail(pokemon).subscribe((response:any) => {
+      console.info(response);
+      this.pokemon = response;
+    })
   }
+
+  search() {
+    this.listPokemon(0, this.pageSize, this.filter);
+  }
+
+  paginate (event) {
+    console.info(event);
+    console.info(this.filter)
+    this.listPokemon(event.pageIndex, this.pageSize, this.filter);
+
+  }
+
+  listPokemon(offset, limit, filter) {
+
+    this.pokemonService.search(filter, offset, limit).subscribe( (response:any) => {
+        const { data, page, perPage, total } = response;
+        console.info(response);
+        this.pokemons = data;
+         this.length = total;
+         this.pageSize = perPage
+     });
+  }
+
 }

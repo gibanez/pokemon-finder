@@ -9,9 +9,10 @@
 }
 
 mat-sidenav {
-  width: 30%;
+  width: 99%;
 }
 
 mat-list-item:hover {
   background-color: #CCC;
 }
+

@@ -24,8 +24,11 @@ class PokemonService {
 
 		const moves = [];
 		const stats = [];
+		const sprites = {front:null, back:null};
 
 		const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon.reference_id);
+
+		console.info(data)
 
 		const info = {
 			name: data.name,
@@ -44,7 +47,10 @@ class PokemonService {
 			});
 		})
 
-		return {info, moves, stats}
+		sprites.front = data.sprites.front_default;
+		sprites.back = data.sprites.back_default;
+
+		return {info, moves, stats, sprites}
 	}
 
 	
