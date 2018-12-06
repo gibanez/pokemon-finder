@@ -1,0 +1,39 @@
+<div *ngIf="pokemon">
+	<mat-tab-group>
+	  <mat-tab label="Info">
+	  	<div class="content">
+			<h1>{{pokemon.info.name}}</h1>
+			<mat-grid-list cols="2" rowHeight="3:1">
+			  <mat-grid-tile><img src="{{pokemon.sprites.front}}"  style="width: 200px;" /></mat-grid-tile>
+			  <mat-grid-tile>
+			  	<p>height: {{pokemon.info.height}}</p>
+			  	
+				</mat-grid-tile>
+			  <mat-grid-tile><img src="{{pokemon.sprites.back}}" style="width: 200px;" /></mat-grid-tile>
+			  <mat-grid-tile>
+			  	<p>weight: {{pokemon.info.weight}}</p>
+			  </mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	  </mat-tab>
+	  <mat-tab label="Stats">
+	  	<div class="content">
+		  	<p *ngFor="let stat of pokemon.stats">
+			  <span [matBadge]="stat.value" matBadgeOverlap="false">{{stat.name}}</span>
+			</p>
+		</div>
+	  </mat-tab>
+	  <mat-tab label="Moves">
+	  	<div class="content">
+			
+		  	<mat-chip-list>
+	  			<mat-chip *ngFor="let move of pokemon.moves">{{move}}</mat-chip>
+			</mat-chip-list>
+	  	</div>
+	  </mat-tab>
+	</mat-tab-group>
+</div>
+
+<div *ngIf="!pokemon">
+	<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>

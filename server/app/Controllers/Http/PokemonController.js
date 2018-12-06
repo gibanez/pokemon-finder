@@ -23,8 +23,6 @@ class PokemonController
   	async show ({ request, params, response }) 
 	{
 		const id = params.id;
-		console.info(id);
-
 		const pokemon = await this.pokemonService.detail(id)
     	response.json(pokemon)
   	}

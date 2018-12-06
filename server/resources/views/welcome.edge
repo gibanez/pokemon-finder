@@ -1,15 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hello Adonis</title>
-  {{ style('style') }}
+  <meta charset="utf-8">
+  <title>Pokemon finder</title>
+  <base href="/">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <section>
-    <div class="logo"></div>
-    <div class="title"></div>
-    <div class="subtitle"><p>AdonisJs simplicity will make you feel confident about your code</p></div>
-  </section>
-</body>
-</html>
+  <app-root></app-root>
+  {{ script('dist/runtime.js') }}
+  {{ script('dist/polyfills.js') }}
+  {{ script('dist/styles.js') }}
+  {{ script('dist/vendor.js') }}
+  {{ script('dist/main.js') }}
+  </html>
+

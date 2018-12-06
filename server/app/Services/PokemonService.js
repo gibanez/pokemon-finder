@@ -27,9 +27,7 @@ class PokemonService {
 		const sprites = {front:null, back:null};
 
 		const { data } = await axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon.reference_id);
-
-		console.info(data)
-
+		
 		const info = {
 			name: data.name,
 			height: data.height,

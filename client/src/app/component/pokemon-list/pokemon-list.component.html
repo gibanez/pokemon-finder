@@ -1,0 +1,12 @@
+<mat-list>
+    <mat-list-item *ngFor="let pokemon of pokemons" role="option" (click)="pokemonSelected(pokemon)">
+      <img matListAvatar src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.reference_id}}.png" alt="...">
+      <h3 matLine> {{pokemon.name}} </h3>
+    </mat-list-item>
+  </mat-list>
+
+<mat-paginator [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="paginate($event)">
+</mat-paginator>

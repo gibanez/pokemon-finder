@@ -6,51 +6,41 @@ import { PokemonService } from './service/pokemon.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'client';
   opened = false;
   pokemons:Array<any>;
-  length = 0;
-  pageSize = 10;
+  total = 0;
+  perPage = 10;
   filter:string = null;
   pokemon:any;
-  constructor(protected pokemonService: PokemonService) {
-      
-  }
+  constructor(protected pokemonService: PokemonService) {}
 
-  ngOnInit() {
-    this.listPokemon(0, this.pageSize, null)
-  }
-
-  detail(pokemon) 
-  {
-  	//alert(123)
-  	this.opened = true;
+  detail(pokemon) {
+    this.opened = true;
+    this.pokemon = null;
     this.pokemonService.detail(pokemon).subscribe((response:any) => {
-      console.info(response);
       this.pokemon = response;
     })
   }
 
+  ngOnInit() {
+    this.search();
+  }
+
+  listPokemon(page, limit, filter) {
+    this.pokemonService.search(filter, page, limit).subscribe( (response:any) => {
+        const { data, page, perPage, total } = response;
+        this.pokemons = data;
+        this.total = total;
+        this.perPage = perPage
+     });
+  }
+
   search() {
-    this.listPokemon(0, this.pageSize, this.filter);
+    this.listPokemon(1, this.perPage, this.filter);
   }
 
   paginate (event) {
     console.info(event);
-    console.info(this.filter)
-    this.listPokemon(event.pageIndex, this.pageSize, this.filter);
-
+    this.listPokemon(event.pageIndex+1, this.perPage, this.filter);
   }
-
-  listPokemon(offset, limit, filter) {
-
-    this.pokemonService.search(filter, offset, limit).subscribe( (response:any) => {
-        const { data, page, perPage, total } = response;
-        console.info(response);
-        this.pokemons = data;
-         this.length = total;
-         this.pageSize = perPage
-     });
-  }
-
 }

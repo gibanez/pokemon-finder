@@ -6,10 +6,16 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PokemonListComponent } from './component/pokemon-list/pokemon-list.component';
+import { PokemonDetailComponent } from './component/pokemon-detail/pokemon-detail.component';
+import { HeaderComponent } from './component/header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PokemonListComponent,
+    PokemonDetailComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserAnimationsModule,
