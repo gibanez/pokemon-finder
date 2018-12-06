@@ -34,7 +34,8 @@ class PokemonPopulate extends Command {
 
 	Pokemon.createMany(pokemons).then(resp => {
     		//console.info(resp)
-    		this.success('Pokemons created: ' + pokemons.length);
+        this.success('Pokemons created: ' + pokemons.length);
+    		this.success('Finished: press CTRL+C');
     		return true;
     	}).catch(err=>{
     		this.error('ERROR:');
