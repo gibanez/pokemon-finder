@@ -33,7 +33,8 @@
 
 <app-pokemon-list 
   [pokemons]="pokemons" 
-  [length]="total" 
+  [length]="total"
+  [page]="page"
   (onPokemonSelected)="detail($event)"
   (onPage)="paginate($event)"
 ></app-pokemon-list>

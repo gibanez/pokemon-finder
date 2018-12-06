@@ -11,6 +11,7 @@ export class PokemonListComponent implements OnInit {
   @Input() pokemons:Array<any>;
   @Input() length = 0;
   @Input() pageSize = 10;
+  @Input() page = 0;
   
   @Output() onPokemonSelected = new EventEmitter();
   @Output() onPage = new EventEmitter();

@@ -9,6 +9,7 @@ export class AppComponent implements OnInit {
   opened = false;
   pokemons:Array<any>;
   total = 0;
+  page = 0;
   perPage = 10;
   filter:string = null;
   pokemon:any;
@@ -26,12 +27,14 @@ export class AppComponent implements OnInit {
     this.search();
   }
 
-  listPokemon(page, limit, filter) {
-    this.pokemonService.search(filter, page, limit).subscribe( (response:any) => {
+  listPokemon(pageNum, limit, filter) {
+    this.pokemonService.search(filter, pageNum, limit).subscribe( (response:any) => {
         const { data, page, perPage, total } = response;
+        console.info(page)
         this.pokemons = data;
         this.total = total;
-        this.perPage = perPage
+        this.perPage = perPage,
+        this.page = page-1;
      });
   }
 
